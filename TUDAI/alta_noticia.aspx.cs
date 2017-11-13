@@ -23,12 +23,13 @@ namespace TUDAI
 
         protected void Publicar_Noticia(object sender, EventArgs e)
         {
+
             var oNoticia = new Noticia()
             {
                 Titulo = txt_titulo.Text,
                 Cuerpo = txt_cuerpo.Text,
                 Fecha = date_fecha.SelectedDate,
-                IdCategoria = int.Parse(ddl_categorias.SelectedValue)
+                IdCategoria = string.IsNullOrEmpty(ddl_categorias.SelectedValue) ? -1 : int.Parse(ddl_categorias.SelectedValue),
             };
             using (NoticiaBusiness n = new NoticiaBusiness())
             {
