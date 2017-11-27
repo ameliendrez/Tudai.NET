@@ -4,7 +4,7 @@ using System.Data.SqlClient;
 
 namespace DAL
 {
-    public class CategoriaBusiness
+    public class CategoriaBusiness : IDisposable
     {
         public void InsertCategoria(Categoria oCategoria)
         {
@@ -63,6 +63,11 @@ namespace DAL
             {
                 oConn.Close();
             }
+        }
+
+        public void Dispose()
+        {
+            
         }
     }
 }

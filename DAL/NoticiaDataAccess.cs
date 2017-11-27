@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data.SqlClient;
 using System.Data;
 
@@ -14,12 +14,12 @@ namespace DAL
                 oComm.Transaction = oTran;
 
                 oComm.CommandType = CommandType.Text;
-                oComm.CommandText = string.Format("INSERT INTO {0}.{1}(titulo,fecha,cuerpo,id_categoria) VALUES (@titulo, @fecha, @cuerpo, @id_categoria)", Constants.esquema, Constants.tablaNoticias);
-
+                oComm.CommandText = string.Format("INSERT INTO {0}.{1}(titulo,fecha,cuerpo,id_categoria,autor) VALUES (@titulo, @fecha, @cuerpo, @id_categoria, @autor)", Constants.esquema, Constants.tablaNoticias);
                 oComm.Parameters.AddWithValue("@titulo", oNoticia.Titulo);
                 oComm.Parameters.AddWithValue("@fecha", oNoticia.Fecha);
                 oComm.Parameters.AddWithValue("@cuerpo", oNoticia.Cuerpo);                
                 oComm.Parameters.AddWithValue("@id_categoria", oNoticia.IdCategoria == null ? DBNull.Value : (object)oNoticia.IdCategoria);
+                oComm.Parameters.AddWithValue("@cuerpo", oNoticia.Autor);
 
                 oComm.ExecuteNonQuery();
             }
@@ -38,7 +38,7 @@ namespace DAL
                         oComm.Transaction = oTran;
 
                         oComm.CommandType = CommandType.Text;
-                        oComm.CommandText = string.Format("SELECT [id],[titulo],[fecha],[cuerpo],[id_categoria] FROM {0}.{1} WHERE id=@id", Constants.esquema, Constants.tablaNoticias);
+                        oComm.CommandText = string.Format("SELECT [id],[titulo],[fecha],[cuerpo],[id_categoria],[autor] FROM {0}.{1} WHERE id=@id", Constants.esquema, Constants.tablaNoticias);
 
                         oComm.Parameters.AddWithValue("id",oNoticia.Id);
 
@@ -54,7 +54,7 @@ namespace DAL
             }
         }
 
-        public DataSet GetAll(SqlConnection oConn, SqlTransaction oTran)
+        public void updateNoticia(SqlConnection oConn, SqlTransaction oTran, Noticia oNoticia)
         {
             using (SqlDataAdapter adapter = new SqlDataAdapter())
             {
@@ -67,7 +67,40 @@ namespace DAL
                         oComm.Transaction = oTran;
 
                         oComm.CommandType = CommandType.Text;
-                        oComm.CommandText = string.Format("SELECT [id],[titulo],[fecha],[cuerpo],[id_categoria] FROM {0}.{1}", Constants.esquema, Constants.tablaNoticias);
+                        oComm.CommandText = string.Format("UPDATE {0}.{1} SET [titulo] = @titulo, [fecha] = @fecha ,[cuerpo] = @cuerpo,[id_categoria] = @id_categoria,[autor] = @autor  WHERE id=@id", Constants.esquema, Constants.tablaNoticias);
+
+                        oComm.Parameters.AddWithValue("id", oNoticia.Id);
+                        oComm.Parameters.AddWithValue("titulo", oNoticia.Titulo);
+                        oComm.Parameters.AddWithValue("autor", oNoticia.Autor);
+                        oComm.Parameters.AddWithValue("fecha", oNoticia.Fecha);
+                        oComm.Parameters.AddWithValue("id_categoria", oNoticia.IdCategoria);
+                        oComm.Parameters.AddWithValue("cuerpo", oNoticia.Cuerpo);
+
+                        oComm.ExecuteNonQuery();
+
+
+                    }
+                    finally
+                    {
+                    }
+                }
+            }
+        }
+
+                public DataSet GetAll(SqlConnection oConn, SqlTransaction oTran)
+        {
+            using (SqlDataAdapter adapter = new SqlDataAdapter())
+            {
+                using (SqlCommand oComm = new SqlCommand())
+                {
+                    try
+                    {
+                        DataSet ds = new DataSet();
+                        oComm.Connection = oTran != null ? oTran.Connection : oConn;
+                        oComm.Transaction = oTran;
+
+                        oComm.CommandType = CommandType.Text;
+                        oComm.CommandText = string.Format("SELECT [id],[titulo],[fecha],[cuerpo],[id_categoria],[autor] FROM {0}.{1}", Constants.esquema, Constants.tablaNoticias);
                         
                         adapter.SelectCommand = oComm;
                         adapter.Fill(ds);

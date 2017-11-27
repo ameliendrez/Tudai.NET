@@ -80,7 +80,9 @@
   <ItemGroup>
     <Content Include="Default.aspx" />
     <Content Include="alta_noticia.aspx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="alta_categoria.aspx.cs">

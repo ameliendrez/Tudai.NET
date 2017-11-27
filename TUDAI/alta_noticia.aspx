@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="alta_noticia.aspx.cs" Inherits="TUDAI.AltaNoticia" %>
+<%@ Page Title="" Language="C#" MasterPageFile="~/Site1.Master" AutoEventWireup="true" CodeBehind="alta_noticia.aspx.cs" Inherits="TUDAI.AltaNoticia" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -10,6 +10,11 @@
     <div class="form-group">
         <asp:TextBox ID="txt_cuerpo" runat="server" TextMode="MultiLine" Columns="30" Rows="6" placeholder="Cuerpo de la noticia" CssClass="form-control"></asp:TextBox>
     </div>
+
+     <div class="form-group">
+        <asp:TextBox ID="txt_autor" runat="server" placeholder="Autor de la noticia" CssClass="form-control"></asp:TextBox>
+    </div>
+
     <p>
         <asp:Calendar ID="date_fecha" runat="server" ></asp:Calendar>
     </p>

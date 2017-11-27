@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Data;
 using System.Data.SqlClient;
 
@@ -47,6 +47,24 @@ namespace DAL
                 oConn.Close();
             }
         }
+
+        public void updateNoticia(Noticia oNoticia)
+        {
+            SqlConnection oConn = new SqlConnection(Constants.connectionString);
+            oConn.Open();
+            try
+            {
+                using (NoticiaDataAccess tDataAccess = new NoticiaDataAccess())
+                {
+                   tDataAccess.updateNoticia(oConn, null, oNoticia);
+                }
+            }
+            finally
+            {
+                oConn.Close();
+            }
+        }
+
 
         public DataSet GetNoticias()
         {

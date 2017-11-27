@@ -76,13 +76,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config">
-      <SubType>Designer</SubType>
-    </None>
+    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAL\DAL.csproj">
-      <Project>{5436CA67-6DB7-4CF6-ADA5-547F6467F123}</Project>
+      <Project>{5436ca67-6db7-4cf6-ada5-547f6467f123}</Project>
       <Name>DAL</Name>
     </ProjectReference>
   </ItemGroup>

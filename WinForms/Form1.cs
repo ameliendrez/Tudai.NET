@@ -45,13 +45,6 @@ namespace WinForms
 
         public void CargarCategorias()
         {
-            //Cargar estáticamente los combos
-            //cmbCategoria.DataSource = new ComboItem[] {
-            //    new ComboItem{ ID = 1, Text = "Policiales" },
-            //    new ComboItem{ ID = 2, Text = "Cine" },
-            //    new ComboItem{ ID = 3, Text = "Deportes" }
-            //};
-
             //Cargar consultando la tabla "categoria"
             cmbCategoria.ValueMember = "id";
             cmbCategoria.DisplayMember = "nombre";
